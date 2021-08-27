@@ -1,19 +1,37 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+ <html lang="ja">
+
     <head>
-        <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-        <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-        <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
-        <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
-         <script src="http://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+        <meta charset="utf-8">
+
+        <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+
+        <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+
+        <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.6.2/aframe/build/aframe-ar.js"></script>
+
+        <script src="https://unpkg.com/aframe-html-shader@0.2.0/dist/aframe-html-shader.min.js"></script>
+
+        <script src="http://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+        <link rel="stylesheet" href="style/style.css">
+
     </head>
 
-    <body style="margin: 0; overflow: hidden;">
-       <a-scene embedded arjs='debugUIEnabled:false;' vr-mode-ui="enabled: false">
+    <body>
+
+        <div id="test">
+
+            <h3>test</h3>
+
+        </div>
+
+        <a-scene embedded arjs='debugUIEnabled:false;' vr-mode-ui="enabled: false">
 
             <a-marker preset="hiro">
 
-                <a-plane width="1" height="1" rotation="-90 0 0" material="shader:html; target: http://172.16.1.45:8080/qpe/map/?version=2"></a-plane>
+                <a-plane width="1" height="1" rotation="-90 0 0" material="shader:html; target: #test"></a-plane>
 
             </a-marker>
 
@@ -23,3 +41,4 @@
 
     </body>
  </html>
+ 
