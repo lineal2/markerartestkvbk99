@@ -13,6 +13,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/3.1.0/three.js/build/ar.js"></script>
+    
 
     <script type="module">
 
@@ -111,12 +112,13 @@ const markerPlane = new THREE.Mesh(
       markerPlane.rotation.x = -0.5 * Math.PI;
       marker2.add(markerPlane);
 
-      const gltfLoader = new GLTFLoader();
+      const gltfLoader = new THREE.GLTFLoader();
   const url = '3djseeq.gltf';
   gltfLoader.load(url, (gltf) => {
     const root = gltf.scene;
     marker2.add(root);
 });
+
       const loader = new THREE.FontLoader();
       loader.load('data/testfont.json', (font) => {
         const textGeom = new THREE.TextBufferGeometry('Quuppa Test', {
