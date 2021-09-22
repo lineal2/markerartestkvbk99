@@ -165,13 +165,14 @@ const arMarkerControls3 = new THREEx.ArMarkerControls(arToolkitContext, marker3,
             var geometry = new THREE.BoxGeometry(2.5,2,2);
             
             // Add six images to the material array to wrap different image on different faces     
-            var materialArray = [];
-            materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'https://lineal2.github.io/markerartestkvbk99/imageOne.jpg' ) }));
-            materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'https://lineal2.github.io/markerartestkvbk99/imageTwo.png' ) }));
-            materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'https://lineal2.github.io/markerartestkvbk99/imageThree.png' ) }));
-            materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'https://lineal2.github.io/markerartestkvbk99/imageFour.png' ) }));
-            materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'https://lineal2.github.io/markerartestkvbk99/imageFive.jpg' ) }));
-            materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'https://lineal2.github.io/markerartestkvbk99/imageSix.jpg' ) }));
+            var materialArray = [
+           new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('https://lineal2.github.io/markerartestkvbk99/imageOne.jpg'), side: THREE.DoubleSide}), // RIGHT SIDE
+           new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('https://lineal2.github.io/markerartestkvbk99/imageTwo.png') , side: THREE.DoubleSide}), // RIGHT SIDE;
+           new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('https://lineal2.github.io/markerartestkvbk99/imageThree.png') , side: THREE.DoubleSide}), // RIGHT SIDE;
+           new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('https://lineal2.github.io/markerartestkvbk99/imageFour.png') , side: THREE.DoubleSide}), // RIGHT SIDE;
+           new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('https://lineal2.github.io/markerartestkvbk99/imageFive.jpg') , side: THREE.DoubleSide}), // RIGHT SIDE;
+           new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('https://lineal2.github.io/markerartestkvbk99/imageSix.jpg') , side: THREE.DoubleSide}), // RIGHT SIDE;
+           ];
             var material = new THREE.MeshFaceMaterial(materialArray);
             
             // Finally Creating the Cube Mesh, wrapping images on its surface
