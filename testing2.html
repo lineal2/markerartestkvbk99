@@ -9,7 +9,7 @@
 
 <body>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/3.1.0/three.js/build/ar.js"></script>
@@ -149,6 +149,35 @@ const markerPlane = new THREE.Mesh(
         );
         text.position.set(0, 0.75, 0);
         marker2.add(text);
+
+
+
+        const marker3 = new THREE.Group();
+scene.add(marker3);
+const arMarkerControls3 = new THREEx.ArMarkerControls(arToolkitContext, marker3, {
+  type: 'pattern',
+  patternUrl: 'patterns/pattern-qb.patt',
+  changeMatrixMode: 'modelViewMatrix'
+});
+
+
+            // Creating the Cube, we can change the parameters passed to modify the size of cube :)
+            var geometry = new THREE.BoxGeometry(2.5,2,2);
+            
+            // Add six images to the material array to wrap different image on different faces     
+            var materialArray = [];
+            materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'https://lineal2.github.io/markerartestkvbk99/imageOne.jpg' ) }));
+            materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'https://lineal2.github.io/markerartestkvbk99/imageTwo.png' ) }));
+            materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'https://lineal2.github.io/markerartestkvbk99/imageThree.png' ) }));
+            materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'https://lineal2.github.io/markerartestkvbk99/imageFour.png' ) }));
+            materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'https://lineal2.github.io/markerartestkvbk99/imageFive.jpg' ) }));
+            materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'https://lineal2.github.io/markerartestkvbk99/imageSix.jpg' ) }));
+            var material = new THREE.MeshFaceMaterial(materialArray);
+            
+            // Finally Creating the Cube Mesh, wrapping images on its surface
+            var cube = new THREE.Mesh(geometry, material);
+            // Adding the cube to scene
+            marker3.add(cube);
       });
 
       requestAnimationFrame(function animate(){
