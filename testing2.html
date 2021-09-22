@@ -13,6 +13,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/3.1.0/three.js/build/ar.js"></script>
+    <script src="https://raw.githack.com/fcor/arjs-gestures/master/dist/gestures.js"></script>
 
     <script type="module">
 
@@ -111,29 +112,11 @@ const markerPlane = new THREE.Mesh(
       markerPlane.rotation.x = -0.5 * Math.PI;
       marker2.add(markerPlane);
 
-      const raycaster = new THREE.Raycaster();
-      renderer.domElement.addEventListener('click', (event) => {
-        const element = event.currentTarget;
-        const x = event.clientX - element.offsetLeft;
-        const y = event.clientY - element.offsetTop;
-        const w = element.offsetWidth;
-        const h = element.offsetHeight;
-        const mouse = new THREE.Vector2((x / w) * 2 - 1, -(y / h) * 2 + 1);
-        raycaster.setFromCamera(mouse, camera);
-
-        const intersects = raycaster.intersectObject(markerPlane);
-        if (intersects.length !== 0) {
-          const intersect = intersects[0];
-          const height = 0.1 + Math.random() * 0.4;
-          const cube = new THREE.Mesh(
-            new THREE.BoxBufferGeometry(0.15, height, 0.15),
-            new THREE.MeshNormalMaterial()
-          );
-          cube.position.copy(marker2.worldToLocal(intersect.point));
-          cube.position.y += 0.5 * height;
-          marker2.add(cube);
-        }
-      });
+      const gltfLoader = new GLTFLoader();
+  const url = '3djseeq.gltf';
+  gltfLoader.load(url, (gltf) => {
+    const root = gltf.scene;
+    marker2.add(root);
 
       const loader = new THREE.FontLoader();
       loader.load('data/testfont.json', (font) => {
