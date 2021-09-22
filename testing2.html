@@ -116,7 +116,7 @@ const markerPlane = new THREE.Mesh(
   gltfLoader.load(url, (gltf) => {
     const root = gltf.scene;
     marker2.add(root);
-
+});
       const loader = new THREE.FontLoader();
       loader.load('data/testfont.json', (font) => {
         const textGeom = new THREE.TextBufferGeometry('Quuppa Test', {
