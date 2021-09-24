@@ -82,12 +82,12 @@ var texture = THREE.ImageUtils.loadTexture( 'https://lineal2.github.io/markerart
 const maxAnisotropy = renderer.capabilities.getMaxAnisotropy();
 texture.anisotropy = maxAnisotropy;
 
-				var material2 = new THREE.MeshBasicMaterial( { map: texture } );
+				var material3 = new THREE.MeshBasicMaterial( { map: texture } );
 
 
 
     // plane
-    var plane = new THREE.Mesh(new THREE.PlaneGeometry(4, 4),material2);
+    var plane = new THREE.Mesh(new THREE.PlaneGeometry(4, 4),material3);
     plane.overdraw = true;
     marker.add(plane);
 
