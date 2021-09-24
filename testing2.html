@@ -80,6 +80,34 @@
             changeMatrixMode: 'modelViewMatrix'
         });
 
+        var loader = new THREE.FontLoader();
+
+loader.load( 'japanesefont.json', function ( font ) {
+
+    var textGeo = new THREE.TextGeometry( "感電/注意", {
+
+        font: font,
+
+        size: 200,
+        height: 50,
+        curveSegments: 12,
+
+        bevelThickness: 2,
+        bevelSize: 5,
+        bevelEnabled: true
+
+    } );
+
+    var textMaterial = new THREE.MeshPhongMaterial( { color: 0xff0000 } );
+
+    var mesh = new THREE.Mesh( textGeo, textMaterial );
+    mesh.position.set( x, y, z );
+
+    marker.add( mesh );
+
+} );
+
+
 
         var materialFront = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
 
