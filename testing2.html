@@ -13,208 +13,101 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/3.1.0/three.js/build/ar.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.110/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.115/examples/js/loaders/GLTFLoader.js"></script>
     
 
     <script type="module">
+
         //import * as  THREE from './three/build/three.module.js'
-        //	import {OrbitControls} from './three/examples/jsm/controls/OrbitControls.js'
-        //	import {TrackballControls} from './three/examples/jsm/controls/TrackballControls.js'
-        //import {ARController} from 'https://raw.githack.com/AR-js-org/AR.js/3.1.0/three.js/build/ar.js'
-        const renderer = new THREE.WebGLRenderer({
-            antialias: true,
-            alpha: true
-        });
-        renderer.setClearColor(new THREE.Color(), 0);
-        renderer.setSize(640, 480);
-        renderer.domElement.style.position = 'absolute';
-        renderer.domElement.style.top = '0px';
-        renderer.domElement.style.left = '0px';
-        document.body.appendChild(renderer.domElement);
+	//	import {OrbitControls} from './three/examples/jsm/controls/OrbitControls.js'
+	//	import {TrackballControls} from './three/examples/jsm/controls/TrackballControls.js'
+		//import {ARController} from 'https://raw.githack.com/AR-js-org/AR.js/3.1.0/three.js/build/ar.js'
 
-        const scene = new THREE.Scene();
-        scene.visible = false;
-        const camera = new THREE.Camera();
-        scene.add(camera);
+      const renderer = new THREE.WebGLRenderer({
+        antialias: true,
+        alpha: true
+      });
+      renderer.setClearColor(new THREE.Color(), 0);
+      renderer.setSize(640, 480);
+      renderer.domElement.style.position = 'absolute';
+      renderer.domElement.style.top = '0px';
+      renderer.domElement.style.left = '0px';
+      document.body.appendChild(renderer.domElement);
 
-        const arToolkitSource = new THREEx.ArToolkitSource({
-            sourceType: 'webcam'
-        });
+      const scene = new THREE.Scene();
+      scene.visible = false;
+      const camera = new THREE.Camera();
+      scene.add(camera);
 
-        arToolkitSource.init(() => {
-            setTimeout(() => {
-                onResize();
-            }, 2000);
-        });
+      const arToolkitSource = new THREEx.ArToolkitSource({
+        sourceType: 'webcam'
+      });
 
-        addEventListener('resize', () => {
-            onResize();
-        });
+      arToolkitSource.init(() => {
+        setTimeout(() => {
+          onResize();
+        }, 2000);
+      });
 
-        function onResize() {
-            arToolkitSource.onResizeElement();
-            arToolkitSource.copyElementSizeTo(renderer.domElement);
-            if (arToolkitContext.arController !== null) {
-                arToolkitSource.copyElementSizeTo(arToolkitContext.arController.canvas);
-            }
-        };
+      addEventListener('resize', () => {
+        onResize();
+      });
 
-        const arToolkitContext = new THREEx.ArToolkitContext({
-            cameraParametersUrl: 'data/camera_para.dat',
-            detectionMode: 'mono'
-        });
+      function onResize() {
+        arToolkitSource.onResizeElement();
+        arToolkitSource.copyElementSizeTo(renderer.domElement);
+        if (arToolkitContext.arController !== null) {
+          arToolkitSource.copyElementSizeTo(arToolkitContext.arController.canvas);
+        }
+      };
 
-        arToolkitContext.init(() => {
-            camera.projectionMatrix.copy(arToolkitContext.getProjectionMatrix());
-        });
+      const arToolkitContext = new THREEx.ArToolkitContext({
+        cameraParametersUrl: 'data/camera_para.dat',
+        detectionMode: 'mono'
+      });
 
+      arToolkitContext.init(() => {
+        camera.projectionMatrix.copy(arToolkitContext.getProjectionMatrix());
+      });
 
-        ///////MARKER 
+      const marker = new THREE.Group();
+scene.add(marker);
+const arMarkerControls = new THREEx.ArMarkerControls(arToolkitContext, marker, {
+  type: 'pattern',
+  patternUrl: 'patterns/pattern-logo.patt',
+  changeMatrixMode: 'modelViewMatrix'
+});
 
-
-        const marker = new THREE.Group();
-        scene.add(marker);
-        const arMarkerControls = new THREEx.ArMarkerControls(arToolkitContext, marker, {
-            type: 'pattern',
-            patternUrl: 'patterns/pattern-logo.patt',
-            changeMatrixMode: 'modelViewMatrix'
-        });
-
-        var loader = new THREE.FontLoader();
-
-loader.load( 'japanesefont.json', function ( font ) {
-
-    var textGeo = new THREE.TextGeometry( "感電/注意", {
-
-        font: font,
-
-        size: 200,
-        height: 50,
-        curveSegments: 12,
-
-        bevelThickness: 2,
-        bevelSize: 5,
-        bevelEnabled: true
-
-    } );
-
-    var textMaterial = new THREE.MeshPhongMaterial( { color: 0xff0000 } );
-
-    var mesh = new THREE.Mesh( textGeo, textMaterial );
-    mesh.position.set( x, y, z );
-
-    marker.add( mesh );
-
-} );
-
-
-
-        var materialFront = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
-
- var materialSide = new THREE.MeshBasicMaterial( { color: 0x000088 } );
- var materialArray = [ materialFront, materialSide ];
-
- var textGeom = new THREE.TextGeometry( "感電/注意", 
-        {
-                size: 30, height: 4, curveSegments: 3,
-                font: "japanesefont.json", weight: "bold", style: "normal",
-                bevelThickness: 1, bevelSize: 2, bevelEnabled: true,
-                material: 0, extrudeMaterial: 1
-        });
-        
-        var textMaterial = new THREE.MeshFaceMaterial(materialArray);
-        var textMesh = new THREE.Mesh(textGeom, textMaterial );
-  
-        marker.add(textMesh);  
-
-
-
-        ////MARKER 
-
-        const marker1 = new THREE.Group();
-        scene.add(marker1);
-        const arMarkerControls1 = new THREEx.ArMarkerControls(arToolkitContext, marker1, {
-            type: 'pattern',
-            patternUrl: 'patterns/warn2.patt',
-            changeMatrixMode: 'modelViewMatrix'
-        });
-
-        const geometry1 = new THREE.BoxGeometry(1, 1, 1);
-        const material1 = new THREE.MeshBasicMaterial({
-            color: 0x00FF00
-        });
-        const cube1 = new THREE.Mesh(geometry1, material1);
-        marker1.add(cube1);
-
-
-        ///////MARKER 
-
-
-
-        const marker2 = new THREE.Group();
-        scene.add(marker2);
-        const arMarkerControls2 = new THREEx.ArMarkerControls(arToolkitContext, marker2, {
-            type: 'pattern',
-            patternUrl: 'patterns/step1.patt',
-            changeMatrixMode: 'modelViewMatrix'
-        });
-
-        const geometry2 = new THREE.BoxGeometry(1, 1, 1);
-        const material2 = new THREE.MeshBasicMaterial({
-            color: 0x00FFFF
-        });
-        const cube2 = new THREE.Mesh(geometry2, material2);
-        marker2.add(cube2);
-
-        /////////////////////MARKER
-
-
-        const marker3 = new THREE.Group();
-        scene.add(marker3);
-        const arMarkerControls3 = new THREEx.ArMarkerControls(arToolkitContext, marker3, {
-            type: 'pattern',
-            patternUrl: 'patterns/step2.patt',
-            changeMatrixMode: 'modelViewMatrix'
-        });
-
-        const geometry3 = new THREE.BoxGeometry(1, 1, 1);
-        const material3 = new THREE.MeshBasicMaterial({
-            color: 0xFF0000
-        });
-        const cube3 = new THREE.Mesh(geometry3, material3);
-        marker3.add(cube3);
-        ///////MARKER 
-
-
-
-        const marker4 = new THREE.Group();
-        scene.add(marker4);
-        const arMarkerControls4 = new THREEx.ArMarkerControls(arToolkitContext, marker4, {
-            type: 'pattern',
-            patternUrl: 'patterns/words.patt',
-            changeMatrixMode: 'modelViewMatrix'
-        });
-
-        const geometry4 = new THREE.BoxGeometry(1, 1, 1);
-        const material4 = new THREE.MeshBasicMaterial({
-            color: 0xFF00FF
-        });
-        const cube4 = new THREE.Mesh(geometry4, material4);
-        marker4.add(cube4);
+  const loader = new THREE.FontLoader();
+      loader.load('data/textjapanese.json', (font) => {
+        const textGeom = new THREE.TextBufferGeometry('感電\n注意', {
+            font: font,
+            size: 0.1,
+            height: 0.04,
+          });
+        textGeom.center();
+        const text = new THREE.Mesh(
+          textGeom,
+          new THREE.MeshNormalMaterial()
+        );
+        text.position.set(0, 0.75, 0);
+        marker.add(text);
 
 
 
 
 
-        requestAnimationFrame(function animate() {
-            requestAnimationFrame(animate);
-            if (arToolkitSource.ready) {
-                arToolkitContext.update(arToolkitSource.domElement);
-                scene.visible = camera.visible;
-            }
+      });
 
-            renderer.render(scene, camera);
-        });
+      requestAnimationFrame(function animate(){
+        requestAnimationFrame(animate);
+        if (arToolkitSource.ready) {
+          arToolkitContext.update(arToolkitSource.domElement);
+          scene.visible = camera.visible;
+        }
+
+        renderer.render(scene, camera);
+      });
     </script>
 
 
