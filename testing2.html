@@ -94,7 +94,7 @@
 
         const marker1 = new THREE.Group();
         scene.add(marker1);
-        const arMarkerControls = new THREEx.ArMarkerControls(arToolkitContext, marker1, {
+        const arMarkerControls1 = new THREEx.ArMarkerControls(arToolkitContext, marker1, {
             type: 'pattern',
             patternUrl: 'patterns/warn2.patt',
             changeMatrixMode: 'modelViewMatrix'
@@ -177,6 +177,10 @@
             renderer.render(scene, camera);
         });
     </script>
+
+
+
+
 
 
 </body>
