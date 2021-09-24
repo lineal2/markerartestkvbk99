@@ -132,25 +132,10 @@ const arMarkerControls3 = new THREEx.ArMarkerControls(arToolkitContext, marker3,
   changeMatrixMode: 'modelViewMatrix'
 });
 
-
-            // Creating the Cube, we can change the parameters passed to modify the size of cube :)
-            var geometry = new THREE.BoxGeometry(1.5,1,1);
-            
-            // Add six images to the material array to wrap different image on different faces     
-            var materialArray = [
-           new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('https://lineal2.github.io/markerartestkvbk99/imageOne.jpg'), side: THREE.DoubleSide}), // RIGHT SIDE
-           new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('https://lineal2.github.io/markerartestkvbk99/imageTwo.png') , side: THREE.DoubleSide}), // RIGHT SIDE;
-           new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('https://lineal2.github.io/markerartestkvbk99/imageThree.png') , side: THREE.DoubleSide}), // RIGHT SIDE;
-           new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('https://lineal2.github.io/markerartestkvbk99/imageFour.png') , side: THREE.DoubleSide}), // RIGHT SIDE;
-           new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('https://lineal2.github.io/markerartestkvbk99/imageFive.jpg') , side: THREE.DoubleSide}), // RIGHT SIDE;
-           new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('https://lineal2.github.io/markerartestkvbk99/imageSix.jpg') , side: THREE.DoubleSide}), // RIGHT SIDE;
-           ];
-            var material = new THREE.MeshFaceMaterial(materialArray);
-            
-            // Finally Creating the Cube Mesh, wrapping images on its surface
-            var cube = new THREE.Mesh(geometry, material);
-            // Adding the cube to scene
-            marker3.add(cube);
+const geometry = new THREE.BoxGeometry( 1, 1, 1 );
+const material = new THREE.MeshBasicMaterial( {color: 0xFF00FF} );
+const cube = new THREE.Mesh( geometry, material );
+marker3.add( cube );
             
             
             const marker4 = new THREE.Group();
@@ -166,7 +151,6 @@ const geometry2 = new THREE.BoxGeometry( 1, 1, 1 );
 const material2 = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
 const cube2 = new THREE.Mesh( geometry2, material2 );
 scene.add( cube2 );
-      });
 
       requestAnimationFrame(function animate(){
         requestAnimationFrame(animate);
