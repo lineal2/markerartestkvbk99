@@ -120,20 +120,7 @@ const markerPlane = new THREE.Mesh(
     marker2.add(root);
 });
 
-      const loader = new THREE.FontLoader();
-      loader.load('data/testfont.json', (font) => {
-        const textGeom = new THREE.TextBufferGeometry('Quuppa Test', {
-            font: font,
-            size: 0.1,
-            height: 0.04,
-          });
-        textGeom.center();
-        const text = new THREE.Mesh(
-          textGeom,
-          new THREE.MeshNormalMaterial()
-        );
-        text.position.set(0, 0.75, 0);
-        marker2.add(text);
+
 
 
 
@@ -147,7 +134,7 @@ const arMarkerControls3 = new THREEx.ArMarkerControls(arToolkitContext, marker3,
 
 
             // Creating the Cube, we can change the parameters passed to modify the size of cube :)
-            var geometry = new THREE.BoxGeometry(2.5,2,2);
+            var geometry = new THREE.BoxGeometry(1.5,1,1);
             
             // Add six images to the material array to wrap different image on different faces     
             var materialArray = [
