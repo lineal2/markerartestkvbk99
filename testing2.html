@@ -74,7 +74,7 @@
 scene.add(marker);
 const arMarkerControls = new THREEx.ArMarkerControls(arToolkitContext, marker, {
   type: 'pattern',
-  patternUrl: 'patterns/warn.patt',
+  patternUrl: 'patterns/pattern-quup.patt',
   changeMatrixMode: 'modelViewMatrix'
 });
 
@@ -99,7 +99,7 @@ const marker2 = new THREE.Group();
 scene.add(marker2);
 const arMarkerControls2 = new THREEx.ArMarkerControls(arToolkitContext, marker2, {
   type: 'pattern',
-  patternUrl: 'patterns/words.patt',
+  patternUrl: 'patterns/warn.patt',
   changeMatrixMode: 'modelViewMatrix'
 });
 
@@ -141,7 +141,7 @@ const markerPlane = new THREE.Mesh(
 scene.add(marker3);
 const arMarkerControls3 = new THREEx.ArMarkerControls(arToolkitContext, marker3, {
   type: 'pattern',
-  patternUrl: 'patterns/warn2.patt',
+  patternUrl: 'patterns/pattern-qq.patt',
   changeMatrixMode: 'modelViewMatrix'
 });
 
@@ -164,6 +164,21 @@ const arMarkerControls3 = new THREEx.ArMarkerControls(arToolkitContext, marker3,
             var cube = new THREE.Mesh(geometry, material);
             // Adding the cube to scene
             marker3.add(cube);
+            
+            
+            const marker4 = new THREE.Group();
+scene.add(marker4);
+const arMarkerControls4 = new THREEx.ArMarkerControls(arToolkitContext, marker4, {
+  type: 'pattern',
+  patternUrl: 'patterns/step1.patt',
+  changeMatrixMode: 'modelViewMatrix'
+});
+
+
+const geometry2 = new THREE.BoxGeometry( 1, 1, 1 );
+const material2 = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+const cube2 = new THREE.Mesh( geometry2, material2 );
+scene.add( cube2 );
       });
 
       requestAnimationFrame(function animate(){
