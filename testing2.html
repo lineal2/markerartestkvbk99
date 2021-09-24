@@ -76,17 +76,28 @@
         scene.add(marker);
         const arMarkerControls = new THREEx.ArMarkerControls(arToolkitContext, marker, {
             type: 'pattern',
-            patternUrl: 'patterns/warn.patt',
+            patternUrl: 'patterns/pattern-logo.patt',
             changeMatrixMode: 'modelViewMatrix'
         });
 
 
-        const geometry = new THREE.BoxGeometry(1, 1, 1);
-        const material = new THREE.MeshBasicMaterial({
-            color: 0x0000FF
+        var materialFront = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
+
+ var materialSide = new THREE.MeshBasicMaterial( { color: 0x000088 } );
+ var materialArray = [ materialFront, materialSide ];
+
+ var textGeom = new THREE.TextGeometry( "感電/注意", 
+        {
+                size: 30, height: 4, curveSegments: 3,
+                font: "japanesefont.json", weight: "bold", style: "normal",
+                bevelThickness: 1, bevelSize: 2, bevelEnabled: true,
+                material: 0, extrudeMaterial: 1
         });
-        const cube = new THREE.Mesh(geometry, material);
-        marker.add(cube);
+        
+        var textMaterial = new THREE.MeshFaceMaterial(materialArray);
+        var textMesh = new THREE.Mesh(textGeom, textMaterial );
+  
+        marker.add(textMesh);  
 
 
 
