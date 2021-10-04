@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Quuppa Tag monitor 3D</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+
+    <script src="vendor/three.min.js"></script>
+    <script src="vendor/GLTFLoader.js"></script>
+    <script src="ar-nft.js"></script>
+<!-- DON'T REMOVE OR CHANGE THIS LINE -->
+<script>THREEx.ArToolkitContext.baseURL = '/qpe/3d/oct4/resources'</script>
+
+<body style='position: absolute; top: 0; left: 0; width: 100%; height: 100%; margin : 0px; overflow: hidden;'>
+    <style>
+        .arjs-loader {
+            margin: 0 auto;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .arjs-loader-spinner {
+            z-index: 10;
+            -webkit-transform: spin 1s linear infinite;
+            animation: spin 1s linear infinite;
+            border: 3px solid #ddd;
+            border-top: 3px solid #42a5f5;
+            border-radius: 50%;
+            height: 75px;
+            width: 75px;
+        }
+
+        @-webkit-keyframes spin {
+            to {
+                border-top-color: #42a5f5;
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin {
+            to {
+                border-top-color: #42a5f5;
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    <div class="arjs-loader">
+        <div class="arjs-loader-spinner"></div>
+    </div>
+    <script>
+        //////////////////////////////////////////////////////////////////////////////////
+        //		Init
+        //////////////////////////////////////////////////////////////////////////////////
+
+        var renderer = new THREE.WebGLRenderer({
+            antialias: true,
+            alpha: true,
+            precision: 'mediump',
+        });
+
+        var clock = new THREE.Clock();
+
+        var mixers = [];
+
+        renderer.setPixelRatio(window.devicePixelRatio);
+
+        renderer.setClearColor(new THREE.Color('lightgrey'), 0)
+        renderer.setSize( window.innerWidth, window.innerHeight );
+        renderer.domElement.style.position = 'absolute'
+        renderer.domElement.style.top = '0px'
+        renderer.domElement.style.left = '0px'
+        document.body.appendChild( renderer.domElement );
+
+        // init scene and camera
+        var scene = new THREE.Scene();
+
+        //////////////////////////////////////////////////////////////////////////////////
+        //		Initialize a basic camera
+        //////////////////////////////////////////////////////////////////////////////////
+
+        // Create a camera
+        var camera = new THREE.Camera();
+        scene.add(camera);
+
+        var light = new THREE.AmbientLight(0xffffff);
+        scene.add(light);
+
+        ////////////////////////////////////////////////////////////////////////////////
+        //          handle arToolkitSource
+        ////////////////////////////////////////////////////////////////////////////////
+
+        var arToolkitSource = new THREEx.ArToolkitSource({
+            sourceType : 'webcam',
+            sourceWidth: 480,
+
+            sourceHeight: 640,
+        })
+
+        arToolkitSource.init(function onReady(){
+            // use a resize to fullscreen mobile devices
+            setTimeout(function() {
+                onResize()
+            }, 1000);
+        })
+
+        // handle resize
+        window.addEventListener('resize', function(){
+            onResize()
+        })
+
+        function onResize(){
+            arToolkitSource.onResizeElement()
+            arToolkitSource.copyElementSizeTo(renderer.domElement)
+            if( arToolkitContext.arController !== null ){
+                arToolkitSource.copyElementSizeTo(arToolkitContext.arController.canvas)
+            }
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////
+        //          initialize arToolkitContext
+        ////////////////////////////////////////////////////////////////////////////////
+
+        // create atToolkitContext
+        var arToolkitContext = new THREEx.ArToolkitContext({
+            detectionMode: 'mono',
+            canvasWidth: 480,
+            canvasHeight: 640,
+        }, {
+            sourceWidth: 480,
+            sourceHeight: 640,
+        })
+
+        // initialize it
+        arToolkitContext.init(function onCompleted(){
+            // copy projection matrix to camera
+            camera.projectionMatrix.copy( arToolkitContext.getProjectionMatrix() );
+        })
+
+        ////////////////////////////////////////////////////////////////////////////////
+        //          Create a ArMarkerControls
+        ////////////////////////////////////////////////////////////////////////////////
+
+        // init controls for camera
+        var markerControls = new THREEx.ArMarkerControls(arToolkitContext, camera, {
+            type : 'nft',
+            descriptorsUrl : 'qpe/3d/oct4/marker/try',
+            changeMatrixMode: 'cameraTransformMatrix'
+        })
+
+        scene.visible = false
+
+
+      //  var root = new THREE.tex();
+      //  scene.add(root);
+
+        //////////////////////////////////////////////////////////////////////////////////
+        //		add an object in the scene
+        //////////////////////////////////////////////////////////////////////////////////
+
+        var threeGLTFLoader = new THREE.ImageLoader();
+        var model;
+
+        const loader = new THREE.ImageLoader();
+
+// load a image resource
+loader.load(
+	// resource URL
+	'https://lineal2.github.io/markerartestkvbk99/patterns/image04.png',
+
+	// onLoad callback
+	function ( image ) {
+		// use the image, e.g. draw part of it on a canvas
+		const canvas = document.createElement( 'canvas' );
+		const context = canvas.getContext( '2d' );
+		context.drawImage( image, 100, 100 );
+        scene.add(image);
+	},
+
+	// onProgress callback currently not supported
+	undefined,
+
+	// onError callback
+	function () {
+		console.error( 'An error happened.' );
+	}
+);
+    </script>
+</body>
